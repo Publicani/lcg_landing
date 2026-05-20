@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LCG — Building made simple.</title>
+  <meta name="description" content="Layman Construction Guide — the step-by-step app for homeowners acting as their own general contractor. Track your build, hire contractors, manage permits, and close it out." />
+  <meta property="og:title" content="LCG — Building made simple." />
+  <meta property="og:description" content="The step-by-step guide for homeowners who want to act as their own general contractor — without the guesswork." />
+  <meta property="og:type" content="website" />
+  <!-- TODO: Add favicon when brand asset is ready -->
+  <!-- TODO: Add og:image when hero image is ready -->
+
+  <style>
+    /* ── Reset & Base ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:     #FAF3E8;
+      --espresso:  #2C1F0E;
+      --amber:     #8B5E2F;
+      --amber-mid: #B47A3C;
+      --border:    #E8D9C0;
+      --text:      #6B4F2E;
+      --text-dark: #3D2810;
+      --white:     #ffffff;
+      --off-white: #F3EAD8;
+      --radius:    12px;
+      --radius-sm: 8px;
+      --shadow:    0 1px 4px rgba(44,31,14,0.08), 0 4px 16px rgba(44,31,14,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .amber { color: var(--amber-mid); }
+
+    /* ── Buttons ────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity .15s, box-shadow .15s, transform .1s;
+      border: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-amber {
+      background: var(--amber);
+      color: var(--white);
+      border-color: var(--amber);
+    }
+    .btn-amber:hover { box-shadow: 0 4px 14px rgba(139,94,47,.35); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--amber);
+      border-color: var(--amber);
+    }
+
+    .btn-cream {
+      background: var(--cream);
+      color: var(--espresso);
+      border-color: var(--cream);
+      font-weight: 600;
+    }
+    .btn-cream:hover { box-shadow: 0 4px 14px rgba(250,243,232,.4); }
+
+    /* ── Section labels ─────────────────────────────────────────────── */
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--amber-mid);
+      margin-bottom: 14px;
+    }
+
+    /* ── NAV ────────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .2s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 12px rgba(44,31,14,.10); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+    }
+
+    /* TODO: Replace this wordmark with <img src="lcg-logo.svg" alt="LCG"> when logo asset is ready */
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--espresso);
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+    .nav-logo .nav-builder { color: var(--amber-mid); font-weight: 500; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .nav-link:hover { color: var(--amber); }
+
+    .nav-actions .btn { padding: 9px 20px; font-size: 14px; }
+
+    /* ── HERO ───────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--cream);
+      padding: 88px 0 80px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--amber-mid);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 22px;
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      margin: 0 auto 36px;
+      font-size: 18px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .hero-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    /* App store badges */
+    .badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 20px;
+      background: var(--espresso);
+      color: var(--white);
+      border-radius: 10px;
+      text-decoration: none;
+      min-width: 148px;
+      transition: opacity .15s, transform .1s;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge:hover { opacity: .88; transform: translateY(-1px); }
+    .badge-sub {
+      font-size: 10px;
+      opacity: .75;
+      letter-spacing: .02em;
+    }
+    .badge-main {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    /* ── FEATURES ───────────────────────────────────────────────────── */
+    .features {
+      background: var(--white);
+      padding: 88px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .features h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -.02em;
+      margin-bottom: 12px;
+    }
+
+    .features-sub {
+      max-width: 480px;
+      margin: 0 auto;
+      font-size: 17px;
+      color: var(--text);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: box-shadow .2s, transform .15s;
+    }
+    .feature-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      color: var(--amber);
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ───────────────────────────────────────────────── */
+    .how {
+      background: var(--cream);
+      padding: 88px 0;
+    }
+
+    .how-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .how h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -.02em;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    /* Connecting line between steps */
+    .how-steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(12.5% + 22px);
+      right: calc(12.5% + 22px);
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .step {
+      padding: 0 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* ── LCG OWNER ──────────────────────────────────────────────────── */
+    .owner {
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 88px 0;
+    }
+
+    .owner-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .coming-soon-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--amber);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 20px;
+    }
+
+    .owner h2 {
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .owner-body {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 28px;
+      line-height: 1.65;
+    }
+
+    .owner-list {
+      list-style: none;
+      margin-bottom: 36px;
+    }
+
+    .owner-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      color: var(--text-dark);
+    }
+
+    .owner-list-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      color: var(--amber);
+      margin-top: 1px;
+    }
+
+    /* Email signup */
+    .owner-form-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-bottom: 10px;
+    }
+
+    .owner-form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .owner-form input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: 15px;
+      color: var(--espresso);
+      outline: none;
+      transition: border-color .15s;
+      font-family: inherit;
+    }
+    .owner-form input[type="email"]:focus { border-color: var(--amber); }
+
+    .owner-form .btn { padding: 12px 22px; }
+
+    .owner-success {
+      display: none;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--amber);
+    }
+    .owner-success.visible { display: block; }
+
+    /* Decorative home record card */
+    .home-card {
+      background: var(--espresso);
+      border-radius: 18px;
+      padding: 28px;
+      color: var(--white);
+      box-shadow: 0 8px 40px rgba(44,31,14,.25);
+    }
+
+    .home-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .home-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+
+    .home-card-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--amber);
+      color: var(--white);
+      border-radius: 6px;
+      padding: 3px 9px;
+    }
+
+    .home-card-field {
+      margin-bottom: 16px;
+    }
+
+    .home-card-field-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 4px;
+    }
+
+    .home-card-field-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .home-card-field-value.amber-val { color: #E8A855; }
+
+    .home-card-divider {
+      height: 1px;
+      background: rgba(255,255,255,.08);
+      margin: 16px 0;
+    }
+
+    .home-card-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .home-card-stat {
+      background: rgba(255,255,255,.05);
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .home-card-stat-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .home-card-stat-desc {
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+      margin-top: 2px;
+    }
+
+    /* ── PROS ───────────────────────────────────────────────────────── */
+    .pros {
+      background: var(--espresso);
+      padding: 88px 0;
+    }
+
+    .pros-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pros .section-label { color: #D4A574; }
+
+    .pros h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+
+    .pros-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 36px;
+    }
+
+    .pros-list {
+      list-style: none;
+      text-align: left;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    .pros-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      color: rgba(255,255,255,.85);
+    }
+
+    .check-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      color: #D4A574;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .footer-links a:hover { color: var(--amber); }
+
+    /* ── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-link { display: none; }
+      .nav-actions .btn { font-size: 13px; padding: 8px 16px; }
+
+      .hero { padding: 60px 0 56px; }
+      .hero h1 { font-size: 36px; }
+      .hero-sub { font-size: 16px; }
+      .hero-btns .btn { font-size: 14px; }
+
+      .features { padding: 60px 0; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .feature-card { padding: 20px; }
+
+      .how { padding: 60px 0; }
+      .how-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .how-steps::before { display: none; }
+
+      .owner { padding: 60px 0; }
+      .owner-inner { grid-template-columns: 1fr; gap: 40px; }
+      .home-card { display: none; } /* hide decorative card on mobile to keep layout clean */
+
+      .pros { padding: 60px 0; }
+      .pros-list { display: flex; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 400px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <!-- TODO: Replace this wordmark with <img src="lcg-logo.svg" alt="Layman Construction Guide"> when logo asset is ready -->
+      <a href="#" class="nav-logo">LCG <span class="nav-builder">— Builder</span></a>
+      <div class="nav-actions">
+        <a href="#pros" class="nav-link">For contractors</a>
+        <a href="#download" class="btn btn-amber">Download the app</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────── -->
+  <section class="hero" id="download">
+    <div class="container">
+      <p class="hero-eyebrow">Layman Construction Guide</p>
+      <h1>Building made <span class="amber">simple.</span></h1>
+      <p class="hero-sub">The step-by-step guide for homeowners who want to act as their own general contractor — without the guesswork.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn btn-amber">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+          Download free
+        </a>
+        <a href="#how-it-works" class="btn btn-outline">See how it works</a>
+      </div>
+      <div class="badges">
+        <!-- TODO: Replace href="#" with real Apple App Store URL when available -->
+        <a href="#" class="badge" aria-label="Download on the App Store">
+          <span class="badge-sub">Download on the</span>
+          <span class="badge-main">App Store</span>
+        </a>
+        <!-- TODO: Replace href="#" with real Google Play URL when available -->
+        <a href="#" class="badge" aria-label="Get it on Google Play">
+          <span class="badge-sub">Get it on</span>
+          <span class="badge-main">Google Play</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURES ─────────────────────────────────────────────────────── -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <span class="section-label">Everything you need</span>
+        <h2>Your project. Under control.</h2>
+        <p class="features-sub">From permits to final inspection — LCG Builder keeps you on track at every phase.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <!-- 1. Step-by-step guidance -->
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+          </svg>
+          <h3>Step-by-step guidance</h3>
+          <p>20-step project workflows for new builds, additions, remodels, and ADUs — so you always know what comes next.</p>
+        </div>
+
+        <!-- 2. Budget tracking -->
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+          <h3>Budget tracking</h3>
+          <p>Track every dollar by CSI division. Generate invoices and draw requests ready for your lender.</p>
+        </div>
+
+        <!-- 3. Contractor directory -->
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          <h3>Contractor directory</h3>
+          <p>Find, bid, hire, and schedule local contractors — all in one place, without the phone tag.</p>
+        </div>
+
+        <!-- 4. Permits & codes -->
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <h3>Permits &amp; codes</h3>
+          <p>Look up building codes and permitting requirements for your jurisdiction before you break ground.</p>
+        </div>
+
+        <!-- 5. Scheduling -->
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <h3>Scheduling</h3>
+          <p>Coordinate your contractors with a shared schedule and to-do list so nobody's waiting on the wrong trade.</p>
+        </div>
+
+        <!-- 6. Project photos -->
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>
+          </svg>
+          <h3>Project photos</h3>
+          <p>Document your build with photos tied to each completed step — a record your future self will thank you for.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ──────────────────────────────────────────────────── -->
+  <section class="how" id="how-it-works">
+    <div class="container">
+      <div class="how-header">
+        <span class="section-label">How it works</span>
+        <h2>Simple from day one.</h2>
+      </div>
+
+      <div class="how-steps">
+
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Set up your project</h3>
+          <p>Choose your project type and enter your address. LCG tailors your workflow to your location and scope.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Follow the steps</h3>
+          <p>Work through your custom checklist phase by phase — from permits and foundation through finishes and CO.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Hire your team</h3>
+          <p>Request bids and schedule contractors from the app. No spreadsheets, no sticky notes.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Close it out</h3>
+          <p>Track inspections, resolve punch list items, and get your certificate of occupancy with confidence.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LCG OWNER (COMING SOON) ───────────────────────────────────────── -->
+  <section class="owner" id="owner">
+    <div class="container">
+      <div class="owner-inner">
+
+        <!-- Left: Copy + email form -->
+        <div class="owner-copy">
+          <span class="coming-soon-pill">Coming soon</span>
+          <h2>Your build doesn't end at move-in.</h2>
+          <p class="owner-body">LCG Owner takes everything from your build — permits, finishes, warranties, contractor contacts — and turns it into a living home record. Know your house, inside and out.</p>
+
+          <ul class="owner-list">
+            <li>
+              <svg class="owner-list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <span><strong>Home profile</strong> — materials, finishes, paint colors, and specs all in one place</span>
+            </li>
+            <li>
+              <svg class="owner-list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span><strong>Maintenance reminders</strong> tied to your actual build date</span>
+            </li>
+            <li>
+              <svg class="owner-list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span><strong>Warranty tracker</strong> for appliances, roofing, HVAC, and more</span>
+            </li>
+            <li>
+              <svg class="owner-list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              <span><strong>Your contractor contacts</strong>, ready when you need them again</span>
+            </li>
+          </ul>
+
+          <!-- TODO: Connect to email capture backend (Formspree, Mailchimp, etc.) -->
+          <p class="owner-form-label">Get notified when LCG Owner launches.</p>
+          <form class="owner-form" id="ownerForm" onsubmit="handleOwnerSignup(event)">
+            <input type="email" id="ownerEmail" placeholder="you@email.com" required aria-label="Email address" />
+            <button type="submit" class="btn btn-amber">Notify me</button>
+          </form>
+          <p class="owner-success" id="ownerSuccess">You're on the list! We'll be in touch.</p>
+        </div>
+
+        <!-- Right: Decorative home record card (desktop only) -->
+        <div class="home-card" aria-hidden="true">
+          <div class="home-card-header">
+            <span class="home-card-title">Home Record</span>
+            <span class="home-card-badge">LCG Owner</span>
+          </div>
+
+          <div class="home-card-field">
+            <div class="home-card-field-label">Project Address</div>
+            <div class="home-card-field-value">4821 Ridgeline Drive, Cedar Hills, UT</div>
+          </div>
+
+          <div class="home-card-field">
+            <div class="home-card-field-label">Build Completed</div>
+            <div class="home-card-field-value">March 14, 2024</div>
+          </div>
+
+          <div class="home-card-divider"></div>
+
+          <div class="home-card-field">
+            <div class="home-card-field-label">Exterior Paint</div>
+            <div class="home-card-field-value">SW 7012 — Creamy (Sherwin-Williams)</div>
+          </div>
+
+          <div class="home-card-field">
+            <div class="home-card-field-label">HVAC Warranty Expires</div>
+            <div class="home-card-field-value amber-val">March 14, 2031</div>
+          </div>
+
+          <div class="home-card-field">
+            <div class="home-card-field-label">Next Maintenance Reminder</div>
+            <div class="home-card-field-value">July 2026 — HVAC filter replacement</div>
+          </div>
+
+          <div class="home-card-stat-row">
+            <div class="home-card-stat">
+              <div class="home-card-stat-num">8</div>
+              <div class="home-card-stat-desc">Saved contractors</div>
+            </div>
+            <div class="home-card-stat">
+              <div class="home-card-stat-num">23</div>
+              <div class="home-card-stat-desc">Warranty items tracked</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LCG PROS ──────────────────────────────────────────────────────── -->
+  <section class="pros" id="pros">
+    <div class="pros-inner">
+      <span class="section-label">LCG — Pros</span>
+      <h2>Are you a contractor?</h2>
+      <p class="pros-sub">Get found by owner-builders in your area for just $0.99/month.</p>
+
+      <ul class="pros-list">
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Get bid requests sent directly to your inbox
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Confirm schedules and manage your project presence
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          List your service area by city
+        </li>
+      </ul>
+
+      <!-- TODO: Update href to the contractor signup / LCG Pros landing page URL when ready -->
+      <a href="#" class="btn btn-cream">List your business &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2026 Publicani LLC &middot; Layman Construction Guide</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <!-- TODO: Replace href="#" with real Privacy Policy URL -->
+        <a href="#">Privacy</a>
+        <!-- TODO: Replace href="#" with real Terms of Service URL -->
+        <a href="#">Terms</a>
+        <!-- TODO: Replace href="#" with real Contact / support URL -->
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav scroll shadow ─────────────────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    // ── Owner email signup (inline success — no backend call yet) ─────
+    // TODO: Connect to email capture backend (Formspree, Mailchimp, etc.)
+    function handleOwnerSignup(e) {
+      e.preventDefault();
+      var email = document.getElementById('ownerEmail').value.trim();
+      if (!email) return;
+      var form = document.getElementById('ownerForm');
+      var success = document.getElementById('ownerSuccess');
+      form.style.display = 'none';
+      success.classList.add('visible');
+    }
+  </script>
+
+</body>
+</html>
