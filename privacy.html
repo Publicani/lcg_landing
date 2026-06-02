@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — LCG Builder & LCG Pros</title>
+  <meta name="description" content="Privacy Policy for LCG Builder and LCG Pros mobile applications, operated by Publicani LLC." />
+
+  <style>
+    /* ── Reset & Base ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:     #FAF3E8;
+      --espresso:  #2C1F0E;
+      --amber:     #8B5E2F;
+      --amber-mid: #B47A3C;
+      --border:    #E8D9C0;
+      --text:      #6B4F2E;
+      --text-dark: #3D2810;
+      --white:     #ffffff;
+      --off-white: #F3EAD8;
+      --radius:    12px;
+      --radius-sm: 8px;
+      --shadow:    0 1px 4px rgba(44,31,14,0.08), 0 4px 16px rgba(44,31,14,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── NAV ────────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .2s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 12px rgba(44,31,14,.10); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--espresso);
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+    .nav-logo .nav-builder { color: var(--amber-mid); font-weight: 500; }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    .nav-back:hover { color: var(--amber); }
+
+    /* ── PAGE HERO ──────────────────────────────────────────────────── */
+    .page-hero {
+      background: var(--espresso);
+      padding: 56px 0 52px;
+      text-align: center;
+    }
+
+    .page-hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #D4A574;
+      margin-bottom: 14px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-hero-meta {
+      font-size: 14px;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* ── POLICY BODY ────────────────────────────────────────────────── */
+    .policy-wrap {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 0 80px;
+    }
+
+    .policy-body {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    /* Intro block */
+    .policy-intro {
+      padding: 24px 28px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 48px;
+    }
+
+    .policy-intro p {
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .policy-intro p:last-child { margin-bottom: 0; }
+
+    .policy-intro strong {
+      color: var(--espresso);
+    }
+
+    /* Section headings */
+    .policy-section {
+      margin-bottom: 44px;
+    }
+
+    .policy-section h2 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .policy-section h2 .sec-num {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--amber-mid);
+      flex-shrink: 0;
+    }
+
+    .policy-section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
+    .policy-section p {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      margin: 10px 0 14px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .policy-section ul li {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.7;
+      padding: 5px 0 5px 22px;
+      position: relative;
+    }
+
+    .policy-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber-mid);
+      opacity: .6;
+    }
+
+    /* Contact block */
+    .contact-block {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 28px;
+      margin-top: 12px;
+    }
+
+    .contact-block p {
+      font-size: 15px;
+      color: var(--text-dark) !important;
+      line-height: 1.7;
+      margin-bottom: 4px !important;
+    }
+
+    .contact-block a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+    .contact-block a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ─────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .footer-links a:hover { color: var(--amber); }
+
+    /* ── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .page-hero { padding: 44px 0 40px; }
+      .policy-wrap { padding: 44px 0 60px; }
+      .policy-intro { padding: 18px 20px; }
+      .contact-block { padding: 18px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">LCG <span class="nav-builder">— Builder</span></a>
+      <a href="/" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to home
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ─────────────────────────────────────────────────────── -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero-label">Publicani LLC</p>
+      <h1>Privacy Policy</h1>
+      <p class="page-hero-meta">Effective June 2, 2026 &nbsp;&middot;&nbsp; Last Updated June 2, 2026</p>
+    </div>
+  </section>
+
+  <!-- ── POLICY BODY ───────────────────────────────────────────────────── -->
+  <div class="policy-wrap">
+    <div class="container">
+      <div class="policy-body">
+
+        <!-- Intro -->
+        <div class="policy-intro">
+          <p>Publicani LLC (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) operates the <strong>LCG Builder</strong> and <strong>LCG Pros</strong> mobile applications (collectively, the &ldquo;Apps&rdquo;). This Privacy Policy explains how we collect, use, store, and protect your personal information when you use the Apps. By using the Apps, you agree to the practices described in this Privacy Policy.</p>
+          <p><strong>We are committed to protecting your privacy. We do not sell, rent, or trade your personal information to any third party, and we never use your personal data for targeted advertising purposes.</strong></p>
+        </div>
+
+        <!-- 1. Information We Collect -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 1</span> Information We Collect</h2>
+
+          <h3>1.1 Information You Provide Directly</h3>
+          <p>When you create an account or use the Apps, you may provide:</p>
+          <ul>
+            <li>Full name and email address (required for account creation)</li>
+            <li>Password (stored in encrypted form &mdash; we never store your password in plain text)</li>
+            <li>Project information, including project address and location, project type, budget details, and construction phase progress</li>
+            <li>Photos you upload to document your project</li>
+            <li>Contractor profile information (LCG Pros users), including business name, service area, divisions, contact information, and Google Business information if provided</li>
+            <li>Communications you send to us via email or in-app support</li>
+          </ul>
+
+          <h3>1.2 Location Information</h3>
+          <p>The Apps collect project address and location information for the following purposes only:</p>
+          <ul>
+            <li>Looking up local building codes and permit requirements</li>
+            <li>Identifying contractors who service your project area</li>
+            <li>Displaying relevant jurisdiction-specific information</li>
+          </ul>
+          <p>We do not use location information for advertising, tracking, or any purpose beyond the direct functionality of the Apps.</p>
+
+          <h3>1.3 Automatically Collected Information</h3>
+          <p>When you use the Apps, we may automatically collect:</p>
+          <ul>
+            <li>Device type, operating system, and app version</li>
+            <li>Crash reports and error logs for app stability and debugging</li>
+            <li>General usage data to improve app performance</li>
+          </ul>
+          <p>We do not collect or store precise real-time location data, browsing history outside the Apps, or behavioral data for advertising profiling.</p>
+
+          <h3>1.4 Payment Information</h3>
+          <p>Payment information is processed exclusively by Stripe, our third-party payment processor. We do not collect, store, or have access to your full credit card number, CVV, or other sensitive payment details. Stripe&rsquo;s privacy practices are governed by their own Privacy Policy, available at stripe.com/privacy.</p>
+        </div>
+
+        <!-- 2. How We Use Your Information -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 2</span> How We Use Your Information</h2>
+          <p>We use the information we collect for the following purposes:</p>
+          <ul>
+            <li>To create and manage your account</li>
+            <li>To provide the features and functionality of the Apps</li>
+            <li>To process subscription payments through Stripe</li>
+            <li>To send transactional emails (account verification, password reset, billing receipts) through Mailgun</li>
+            <li>To send push notifications you have opted into, such as to-do reminders and project updates</li>
+            <li>To look up building codes and permit requirements for your project location</li>
+            <li>To connect owner-builders with contractors in their area</li>
+            <li>To improve the performance, stability, and features of the Apps</li>
+            <li>To respond to your support requests and communications</li>
+            <li>To comply with applicable legal obligations</li>
+          </ul>
+          <p>We do not use your information for targeted advertising, behavioral profiling, or any purpose not described in this Privacy Policy.</p>
+        </div>
+
+        <!-- 3. How We Share Your Information -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 3</span> How We Share Your Information</h2>
+
+          <h3>3.1 Third-Party Service Providers</h3>
+          <p>We share limited information with the following third-party service providers solely to operate the Apps:</p>
+          <ul>
+            <li><strong>Stripe</strong> &mdash; payment processing. Stripe receives the information necessary to process your subscription payments. Stripe is governed by their own Privacy Policy.</li>
+            <li><strong>Mailgun</strong> &mdash; email delivery. Mailgun receives your email address and the content of transactional emails we send on your behalf (account verification, password reset, billing receipts).</li>
+          </ul>
+          <p>We do not share your information with any other third parties, including advertisers, data brokers, analytics companies, or marketing platforms.</p>
+
+          <h3>3.2 Contractor Directory</h3>
+          <p>Information submitted by contractors for their LCG Pros profile &mdash; including business name, service area, divisions, contact information, and Google Business rating and URL &mdash; is visible to owner-builder users of LCG Builder within the contractor directory. By submitting a profile, contractors consent to this visibility.</p>
+
+          <h3>3.3 Legal Requirements</h3>
+          <p>We may disclose your information if required to do so by law, court order, or governmental authority, or if we believe in good faith that such disclosure is necessary to protect the rights, property, or safety of Publicani LLC, our users, or the public.</p>
+
+          <h3>3.4 We Do Not Sell Your Data</h3>
+          <p>Publicani LLC does not sell, rent, lease, or trade your personal information to any third party under any circumstances. This includes your name, email address, project data, location information, and any other information you provide to us.</p>
+        </div>
+
+        <!-- 4. Advertising -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 4</span> Advertising</h2>
+          <p>LCG Builder is supported in part by advertising. We use contextual advertising only &mdash; meaning ads are displayed based on the general content and context of the app, not based on your personal information, browsing history, or behavioral profile.</p>
+          <p>We do not share your personal data with advertisers. We do not build advertising profiles on our users. Advertisers do not have access to your name, email, project data, or any other personal information.</p>
+        </div>
+
+        <!-- 5. Data Storage and Security -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 5</span> Data Storage and Security</h2>
+          <p>Your data is stored on secure servers hosted by Railway (railway.app). We implement industry-standard security measures to protect your information, including:</p>
+          <ul>
+            <li>Encrypted password storage using bcrypt hashing</li>
+            <li>HTTPS encryption for all data transmitted between the Apps and our servers</li>
+            <li>Access controls limiting who can access user data</li>
+            <li>Regular security monitoring and updates</li>
+          </ul>
+          <p>No method of electronic transmission or storage is 100% secure. While we take reasonable steps to protect your information, we cannot guarantee absolute security.</p>
+        </div>
+
+        <!-- 6. Data Retention -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 6</span> Data Retention</h2>
+          <p>We retain your personal information for as long as your account is active or as needed to provide the Apps. You may request deletion of your account and associated data at any time by contacting us at <a href="mailto:brock@laymanconstructionguide.com" style="color:var(--amber);text-decoration:none;">brock@laymanconstructionguide.com</a>. Upon receiving a deletion request, we will delete your personal information within 30 days, except where retention is required by law.</p>
+        </div>
+
+        <!-- 7. Your Rights and Choices -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 7</span> Your Rights and Choices</h2>
+          <p>You have the following rights with respect to your personal information:</p>
+          <ul>
+            <li><strong>Access</strong> &mdash; you may request a copy of the personal information we hold about you</li>
+            <li><strong>Correction</strong> &mdash; you may update or correct inaccurate information through your account settings or by contacting us</li>
+            <li><strong>Deletion</strong> &mdash; you may request deletion of your account and personal information</li>
+            <li><strong>Opt-out of push notifications</strong> &mdash; you may disable push notifications at any time through the notification settings in the Apps or through your device settings</li>
+            <li><strong>Data portability</strong> &mdash; you may request your data in a portable format</li>
+          </ul>
+          <p>To exercise any of these rights, contact us at <a href="mailto:brock@laymanconstructionguide.com" style="color:var(--amber);text-decoration:none;">brock@laymanconstructionguide.com</a>.</p>
+        </div>
+
+        <!-- 8. Children's Privacy -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 8</span> Children&rsquo;s Privacy</h2>
+          <p>The Apps are intended for users 18 years of age and older. We do not knowingly collect personal information from individuals under the age of 18. If we become aware that we have inadvertently collected personal information from a minor under 18, we will take immediate steps to delete that information. If you believe we may have collected information from a minor, please contact us at <a href="mailto:brock@laymanconstructionguide.com" style="color:var(--amber);text-decoration:none;">brock@laymanconstructionguide.com</a>.</p>
+        </div>
+
+        <!-- 9. California Privacy Rights -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 9</span> California Privacy Rights</h2>
+          <p>If you are a California resident, you may have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information we collect, the right to delete your personal information, and the right to opt out of the sale of your personal information. As stated in Section 3.4, we do not sell personal information. To exercise your California privacy rights, contact us at <a href="mailto:brock@laymanconstructionguide.com" style="color:var(--amber);text-decoration:none;">brock@laymanconstructionguide.com</a>.</p>
+        </div>
+
+        <!-- 10. Changes to This Privacy Policy -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 10</span> Changes to This Privacy Policy</h2>
+          <p>We may update this Privacy Policy from time to time. We will notify you of material changes by updating the &ldquo;Last Updated&rdquo; date at the top of this document and, where appropriate, by sending notification through the Apps or via email. Your continued use of the Apps after any change constitutes your acceptance of the updated Privacy Policy.</p>
+        </div>
+
+        <!-- 11. Contact Us -->
+        <div class="policy-section">
+          <h2><span class="sec-num">Section 11</span> Contact Us</h2>
+          <p>If you have questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us:</p>
+          <div class="contact-block">
+            <p><strong>Publicani LLC</strong></p>
+            <p>Layman Construction Guide</p>
+            <p>Email: <a href="mailto:brock@laymanconstructionguide.com">brock@laymanconstructionguide.com</a></p>
+            <p>Website: <a href="https://laymanconstructionguide.com">laymanconstructionguide.com</a></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2026 Publicani LLC &middot; Layman Construction Guide</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/privacy" aria-current="page">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
