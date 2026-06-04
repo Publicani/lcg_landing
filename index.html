@@ -118,17 +118,11 @@
     }
 
     .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--espresso);
       text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-    .nav-logo-img {
-      max-width: 300px;
-      height: auto;
-      display: block;
-    }
-    @media (max-width: 480px) {
-      .nav-logo-img { max-width: 180px; }
+      letter-spacing: -.01em;
     }
 
     .nav-actions {
@@ -155,22 +149,12 @@
       text-align: center;
     }
 
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--amber-mid);
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-size: clamp(40px, 6vw, 68px);
-      font-weight: 700;
-      color: var(--espresso);
-      line-height: 1.1;
-      letter-spacing: -.02em;
-      margin-bottom: 22px;
+    .hero-logo {
+      max-width: 650px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 32px;
     }
 
     .hero-sub {
@@ -681,7 +665,7 @@
   <!-- ── NAV ──────────────────────────────────────────────────────────── -->
   <nav class="nav" id="nav">
     <div class="container nav-inner">
-      <a href="#" class="nav-logo"><img src="/images/LCG_Website_Logo_Master.png" alt="Layman Construction Guide" class="nav-logo-img"></a>
+      <a href="#" class="nav-logo">LCG</a>
       <div class="nav-actions">
         <a href="#pros" class="nav-link">For contractors</a>
         <a href="#download" class="btn btn-amber">Download the app</a>
@@ -692,8 +676,7 @@
   <!-- ── HERO ─────────────────────────────────────────────────────────── -->
   <section class="hero" id="download">
     <div class="container">
-      <p class="hero-eyebrow">Layman Construction Guide</p>
-      <h1>Building made <span class="amber">simple.</span></h1>
+      <img src="/images/LCG_Website_Logo_Master.png" alt="Layman Construction Guide" class="hero-logo">
       <p class="hero-sub">The step-by-step guide for homeowners who want to act as their own general contractor — without the guesswork.</p>
       <div class="hero-btns">
         <a href="#" class="btn btn-amber">
