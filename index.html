@@ -117,15 +117,19 @@
       height: 62px;
     }
 
-    /* TODO: Replace this wordmark with <img src="lcg-logo.svg" alt="LCG"> when logo asset is ready */
     .nav-logo {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--espresso);
       text-decoration: none;
-      letter-spacing: -.01em;
+      display: flex;
+      align-items: center;
     }
-    .nav-logo .nav-builder { color: var(--amber-mid); font-weight: 500; }
+    .nav-logo-img {
+      max-width: 300px;
+      height: auto;
+      display: block;
+    }
+    @media (max-width: 480px) {
+      .nav-logo-img { max-width: 180px; }
+    }
 
     .nav-actions {
       display: flex;
@@ -677,8 +681,7 @@
   <!-- ── NAV ──────────────────────────────────────────────────────────── -->
   <nav class="nav" id="nav">
     <div class="container nav-inner">
-      <!-- TODO: Replace this wordmark with <img src="lcg-logo.svg" alt="Layman Construction Guide"> when logo asset is ready -->
-      <a href="#" class="nav-logo">LCG <span class="nav-builder">— Builder</span></a>
+      <a href="#" class="nav-logo"><img src="/images/LCG_Website_Logo_Master.png" alt="Layman Construction Guide" class="nav-logo-img"></a>
       <div class="nav-actions">
         <a href="#pros" class="nav-link">For contractors</a>
         <a href="#download" class="btn btn-amber">Download the app</a>
